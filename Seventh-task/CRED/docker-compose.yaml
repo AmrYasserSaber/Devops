@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+        - ENV MYSQL_ROOT_PASSWORD=root
+        - ENV MYSQL_DATABASE=cred
+        - ENV MYSQL_USER=cred
+        - ENV MYSQL_PASSWORD=password
+    depends_on:
+      - db_cred
+
+  db_cred:
+    image: mysql:8.4
+    container_name: db_cred
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=cred
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=cred
+    ports:
+      - "3306"
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d:ro"
+
+volumes:
+  db_data:

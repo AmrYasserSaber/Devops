@@ -28,7 +28,7 @@ services:
             - MYSQL_PASSWORD=petclinic
             - MYSQL_DATABASE=petclinic
         ports:
-            - "3306:3306"
+            - "3306"
         volumes:
             - "./conf.d:/etc/mysql/conf.d:ro"
 
