@@ -3,7 +3,7 @@ services:
     # Petclinic Service
     petclinic:
         build:
-            context: .
+            context: ../eighth-task
             dockerfile: Dockerfile
         container_name: petclinic
         restart: always
